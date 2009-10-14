@@ -1,0 +1,10 @@
+<extension 
+	name="Wave Dice Gadget"
+	thumbnailUrl="http://wavedicegadget.googlecode.com/svn/trunk/die_thumb.png"
+	description="A simple dice rolling gadget."> 
+	<author name="Dana Cordes"/> 
+	<menuHook location="toolbar" text="Add Dice Gadget"
+		iconUrl="http://wavedicegadget.googlecode.com/svn/trunk/die.png"> 
+		<insertGadget url="http://wavedicegadget.googlecode.com/svn/trunk/dice.xml"/> 
+	</menuHook> 
+</extension> 
