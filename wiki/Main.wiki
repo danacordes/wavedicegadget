@@ -1,5 +1,5 @@
 #summary Main page.
 
-= Wave Dice Gadge =
+= Wave Dice Gadget =
 
 Icon image originally by *Kolby Kirk*.
