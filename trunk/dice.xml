@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?> 
 <Module>
-<ModulePrefs title="State Example" height="120">
+<ModulePrefs title="Wave Dice Gadget" height="65">
     <Require feature="wave" /> 
   </ModulePrefs>
 <Content type="html">
 <![CDATA[ 
-<div id="content_div" style="height: 50px;border:1px solid black;"></div>
+<style>
+#content_div{
+	border: 1px solid black;
+	height: 32px;
+	padding: 2px;
+	width: auto;
+}
+#content_div div{
+	margin-top: 7px;
+	margin-left: 15px;
+	padding-left: 25px;
+}
+#content_div img{
+	border: 1px solid #CCCCCC;
+	border-right: 2px solid #CCCCCC;
+	border-bottom: 2px solid #CCCCCC;
+	float: left;
+}
+
+</style>
+<div id="content_div" style=""></div>
   
     <input type=button value="Roll!" id="butCount" onClick="roll()">
     <select id="type" onChange="changeType(this.options[this.selectedIndex].value)">
 	<option value="4">4 Sided</option>
-	<option value="6">6 Sided</option>
+	<option value="6" selected="selected">6 Sided</option>
 	<option value="8">8 Sided</option>
 	<option value="10">10 Sided</option>
 	<option value="12">12 Sided</option>
@@ -56,14 +76,17 @@
         div.innerHTML = "No roll has been made."
       } else if(wave.getState().get('roller')) {
 	var user = wave.getParticipantById(wave.getState().get('roller'));
-	div.innerHTML = '';
-        div.innerHTML +=  '<img src="' + user.getThumbnailUrl() + '" width="36" height="36" style="float:left;"/>';
-        div.innerHTML += user.getDisplayName();
+	var content = '';
+        content +=  '<img src="' + user.getThumbnailUrl() + '" width="28" height="28"/>';
+	content += '<div>' + user.getDisplayName();
 	if(wave.getState().get('roll')!='-')
-		div.innerHTML += " rolled a <b>d" + wave.getState().get('type') + "</b> for <b>" + wave.getState().get('roll') + "</b>";
+		content += " rolled a <b>d" + wave.getState().get('type') + "</b> for <b>" + wave.getState().get('roll') + "</b>";
 	else 
-		div.innerHTML += " rolling a  d" + wave.getState().get('type') + "...";
+		content += " rolling a  d" + wave.getState().get('type') + "...";
+	content += '</div>';
+	div.innerHTML = content;
         wave.log(user.getDisplayName() + " rolled a d" + wave.getState().get('type') + " for " + wave.getState().get('roll'));
+	//	alert(div.innerHTML);
       } 
     }
  
