@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<Module>
+<ModulePrefs title="State Example" height="120">
+    <Require feature="wave" /> 
+  </ModulePrefs>
+<Content type="html">
+<![CDATA[ 
+<div id="content_div" style="height: 50px;border:1px solid black;"></div>
+  
+    <input type=button value="Roll!" id="butCount" onClick="roll()">
+    <select id="type" onChange="changeType(this.options[this.selectedIndex].value)">
+	<option value="4">4 Sided</option>
+	<option value="6">6 Sided</option>
+	<option value="8">8 Sided</option>
+	<option value="10">10 Sided</option>
+	<option value="12">12 Sided</option>
+	<option value="20">20 Sided</option>
+	<option value="100">100 Sided</option>
+    </select>
+    <script type="text/javascript">
+
+    var div = document.getElementById('content_div');
+    var select_type = document.getElementById('type');
+
+    function roll() {
+      var type = 6;
+      if(wave.getState().get('type')){
+        type = parseInt(wave.getState().get('type', type));
+      }
+
+      var roll = Math.floor((Math.random() * type) + 1);
+
+      wave.getState().submitDelta({'roll': roll, 'roller': wave.getViewer().getId(), 'type': type});
+    }
+
+    function changeType(type){
+      wave.getState().submitDelta({'roll': '-', 'roller': wave.getViewer().getId(), 'type': type});
+      wave.log("Changing dice type to d" + type + ".");
+    }
+
+    function stateUpdated() {
+
+      if(wave.getState().get('type')) {
+	var type = wave.getState().get('type');
+        for(var i=0; i<select_type.options.length; i++){
+		if(select_type.options[i].value == type){
+			select_type.selectedIndex=i;
+			select_type.options[i].selected=true;
+			break;
+		}
+
+        }
+      }
+
+      if(!wave.getState().get('roll')) {
+        div.innerHTML = "No roll has been made."
+      } else if(wave.getState().get('roller')) {
+	var user = wave.getParticipantById(wave.getState().get('roller'));
+	div.innerHTML = '';
+        div.innerHTML +=  '<img src="' + user.getThumbnailUrl() + '" width="36" height="36" style="float:left;"/>';
+        div.innerHTML += user.getDisplayName();
+	if(wave.getState().get('roll')!='-')
+		div.innerHTML += " rolled a <b>d" + wave.getState().get('type') + "</b> for <b>" + wave.getState().get('roll') + "</b>";
+	else 
+		div.innerHTML += " rolling a  d" + wave.getState().get('type') + "...";
+        wave.log(user.getDisplayName() + " rolled a d" + wave.getState().get('type') + " for " + wave.getState().get('roll'));
+      } 
+    }
+ 
+    function init() {
+      if (wave && wave.isInWaveContainer()) {
+        wave.setStateCallback(stateUpdated);
+      }
+    }
+    gadgets.util.registerOnLoadHandler(init);
+
+    </script>
+  ]]> 
+  </Content>
+</Module>
