@@ -2,7 +2,7 @@
 	name="Wave Dice Gadget"
 	thumbnailUrl="http://wavedicegadget.googlecode.com/svn/trunk/die_thumb.png"
 	description="A simple dice rolling gadget.  Support all standard dice types, d4 through d100.  As you choose your dice type and roll, everyone on your wave will see the updates!  Viva la Wave!"> 
-	<author name="Dana Cordes <dcordes@gmail.com>"/> 
+	<author name="Dana Cordes &lt;dcordes@gmail.com&gt;"/> 
 	<menuHook location="toolbar" text="Add Dice Gadget"
 		iconUrl="http://wavedicegadget.googlecode.com/svn/trunk/die.png"> 
 		<insertGadget url="http://wavedicegadget.googlecode.com/svn/trunk/dice.xml"/> 
